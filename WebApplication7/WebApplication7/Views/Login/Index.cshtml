@@ -1,0 +1,28 @@
+﻿<head>
+    <meta charset="utf-8" />
+  
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+</head>
+@{
+    ViewData["Title"] = "تسجيل الدخول";
+}
+
+<h2 style="text-align:center">تسجيل الدخول</h2>
+
+<form method="post" asp-action="Index" asp-controller="Login" style="max-width: 400px; margin:auto">
+    <div class="form-group">
+        <label>اسم المستخدم</label>
+        <input type="text" name="UserName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>كلمة السر</label>
+        <input type="password" name="UserPassword" class="form-control" required />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">دخول</button>
+</form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <p style="color:red; text-align:center;">@ViewBag.ErrorMessage</p>
+}

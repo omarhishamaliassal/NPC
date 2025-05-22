@@ -1,0 +1,167 @@
+﻿@model WebApplication7.Models.News
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <title>News Form</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+</head>
+
+<form method="post" asp-action="MediaNews" asp-controller="Dashboard" enctype="multipart/form-data">
+    <input type="hidden" name="NewsId" value="@Model.NewsId" />
+
+    <label>عنوان الخبر</label><br />
+    <textarea name="Title" class="form-control" placeholder="اكتب عنوان الخبر" required>@Model.Title</textarea>
+    <br />
+
+    <label>موضوع الخبر</label><br />
+    <textarea name="NewsText" class="form-control" placeholder="اكتب موضوع الخبر" required>@Model.NewsText</textarea>
+    <br />
+    <label>الموقع</label><br />
+    <textarea name="NewsSource" class="form-control" placeholder="مصدر" required>@Model.NewsSource</textarea>
+    <br />
+    <label>الرابط</label><br />
+    <textarea name="URL" class="form-control" placeholder="مصدر" required>@Model.URL</textarea>
+    <br />
+    <label>Is active?</label><br />
+    <select name="IsActive" class="form-control" required>
+        <option value="">اختر</option>
+        <option value="1" @(Model.IsActive == 1 ? "selected" : "")>نعم</option>
+        <option value="0" @(Model.IsActive == 0 ? "selected" : "")>لا</option>
+    </select>
+    <br />
+    <label>On main page?</label><br />
+    <select name="OnMainPage" class="form-control" required>
+        <option value="">اختر</option>
+        <option value="1" @(Model.OnMainPage == 1 ? "selected" : "")>نعم</option>
+        <option value="0" @(Model.OnMainPage == 0 ? "selected" : "")>لا</option>
+    </select>
+    <br />
+    <label>On clock topic?</label><br />
+    <select name="OnClockTopic" class="form-control" required>
+        <option value="">اختر</option>
+        <option value="1" @(Model.OnClockTopic == 1 ? "selected" : "")>نعم</option>
+        <option value="0" @(Model.OnClockTopic == 0 ? "selected" : "")>لا</option>
+    </select>
+    <br />
+ 
+    <label>Publish Date</label><br />
+    <input type="date" name="PublishDate" class="form-control"
+           value="@(Model.PublishDate.HasValue ? Model.PublishDate.Value.ToString("yyyy-MM-dd") : "")" />
+    <br />
+    <label>Small Photo</label><br />
+    <input type="file" id="smallPhotoInput" name="SmallPhotoFile" class="form-control" onchange="showFileName()" />
+    <br />
+    <input type="hidden" name="SmallPhoto" value="@Model.SmallPhoto" />
+    <input type="text" id="fileNameDisplay" class="form-control" placeholder="Selected file name will appear here"
+           value="@Model.SmallPhoto" readonly />
+    <br />
+
+    <label>Large Photo</label><br />
+    <input type="file" id="largePhotoInput" name="LargPhotoFile" class="form-control" onchange="showLargePhotoName()" />
+    <br />
+    <input type="hidden" name="LargPhoto" value="@Model.LargPhoto" />
+    <input type="text" id="fileNameDisplayLarge" class="form-control" placeholder="Selected large photo file name will appear here"
+           value="@Model.LargPhoto" readonly />
+    <br />
+
+
+
+
+
+
+
+    <button type="submit" class="btn btn-primary">حفظ</button>
+</form>
+<script>
+    function showFileName() {
+        const fileInput = document.getElementById("smallPhotoInput");
+        const fileNameDisplay = document.getElementById("fileNameDisplay");
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.value = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.value = "";
+        }
+    }
+    function showLargePhotoName() {
+        const fileInput = document.getElementById("largePhotoInput");
+        const fileNameDisplay = document.getElementById("fileNameDisplayLarge");
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.value = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.value = "";
+        }
+    }
+</script>
+
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+
+<hr />
+<h4>كل الأخبار المضافة:</h4>
+
+@if (ViewBag.AllNews != null && ViewBag.AllNews.Count > 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>عنوان الخبر</th>
+ 
+                <th>Is active?</th>
+                <th>On main page?</th>
+                <th>Publish Date</th>
+               
+                
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var news in ViewBag.AllNews)
+            {
+                <tr>
+                   
+                    <td>@news.Title</td>
+                  
+                    <td>@news.IsActive</td>
+                    <td>@news.OnMainPage</td>
+                    <td>@news.PublishDate</td>
+
+            
+                  
+                    <td>
+                        <form method="get" asp-action="MediaNews" asp-controller="Dashboard" style="display:inline;">
+                            <input type="hidden" name="id" value="@news.NewsId" />
+                            <button type="submit" class="btn btn-secondary">تعديل</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف هذا الخبر؟');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" formaction="/Dashboard/DeleteNews/@news.NewsId" class="btn btn-danger">
+                                إلغاء
+                            </button>
+                        </form>
+
+
+
+
+
+
+                
+
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>لا توجد أخبار بعد.</p>
+}

@@ -1,0 +1,24 @@
+﻿@model WebApplication7.Models.About
+
+
+@{
+    ViewData["Title"] = "عن المبادرة";
+}
+
+<h2 style="text-align:center;">عن المبادرة</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success text-center" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+<form method="post" asp-action="About" asp-controller="About">
+    <textarea name="ChairmanWord" class="form-control" placeholder="اكتب كلمة الرئيس" required></textarea>
+    <button type="submit" class="btn btn-primary">احفظ</button>
+</form>
+
+
+
+

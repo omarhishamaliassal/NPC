@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - My App</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        nav {
+            background: #007bff;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+            nav ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+            }
+
+            nav li {
+                position: relative;
+                cursor: pointer;
+            }
+
+            nav a, nav span {
+                color: white;
+                text-decoration: none;
+            }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background: white;
+            color: black;
+            text-align: right;
+            min-width: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+            .submenu a {
+                display: block;
+                padding: 8px;
+                text-decoration: none;
+                color: black;
+            }
+
+                .submenu a:hover {
+                    background-color: #f0f0f0;
+                }
+
+        nav li:hover .submenu {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <span>عن المبادرة ▾</span>
+                <ul class="submenu">
+                    <li><a href="#">المبادرة في سطور</a></li>
+                    <li><a href="#">كلمة رئيس المبادرة</a></li>
+                    <li><a href="#">كلمة وزير الصحة</a></li>
+                    <li><a href="#">الهيكل التنظيمي</a></li>
+                    <li><a href="#">محاور المبادرة</a></li>
+                    <li><a href="#">مراحل المبادرة</a></li>
+                    <li><a href="#">آليات التنفيذ</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <span>مؤشرات المبادرة ▾</span>
+                <ul class="submenu">
+                    <li><a href="#">مستهدفات المبادرة</a></li>
+                    <li><a href="#">جهود المشورة</a></li>
+                    <li><a href="#">مؤشرات ذات صلة</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <span>خدمات المبادرة ▾</span>
+                <ul class="submenu">
+                    <li><a href="#">ط سير المستفيدين</a></li>
+                    <li><a href="#">المشورة الأسرية</a></li>
+                    <li><a href="#">بالمستشفيات</a></li>
+                    <li><a href="#">مشورة الحامل</a></li>
+                    <li><a href="#">مشورة ما قبل الزواج</a></li>
+                    <li><a href="#">مشورة الأطفال</a></li>
+                    <li><a href="#">مشورة الإعاقة والدمج</a></li>
+                    <li><a href="#">مشورة تنمية الأسرة</a></li>
+                    <li><a href="#">نماذج مضيئة</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <span>الركن الإعلامي ▾</span>
+                <ul class="submenu">
+                    <li><a href="/Dashboard/MediaNews">الأخبار</a></li>
+                    <li><a href="#">ألبومات الصور</a></li>
+                    <li><a href="#">مكتبة الفيديوهات</a></li>
+                    <li><a href="#">قائمة الإنفوجراف</a></li>
+                    <li><a href="#">الرسائل التوعوية</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <span>تواصل معنا ▾</span>
+                <ul class="submenu">
+                    <li><a href="#">أرقام التواصل</a></li>
+                    <li><a href="#">إسأل/ إستشر</a></li>
+                    <li><a href="#">أسئلة شائعة</a></li>
+                    <li><a href="#">رأيك يهمنا</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
+</body>
+</html>
